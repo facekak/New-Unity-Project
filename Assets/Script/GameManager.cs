@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float xInput;
     [SerializeField] private GameObject ballLine;
     [SerializeField] private GameObject camera;
+    [SerializeField] private TMP_Text scoreText;
 
     public static GameManager instance;
 
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         camera = Camera.main.gameObject;
         CameraBehindBall();
+        UpdateScoreText();
         
         SetBall(BallColor.Red,1);
         SetBall(BallColor.Yellow,2);
@@ -88,5 +91,10 @@ public class GameManager : MonoBehaviour
         CameraBehindBall();
         camera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
         ballLine.SetActive(true);
+    }
+
+    public void UpdateScoreText()
+    {
+        scoreText.text = $"Player score: {playerScore}";
     }
 }
