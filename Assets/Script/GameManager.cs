@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject[] ballPosition;
 
+    [SerializeField] private GameObject cueBall;
+
+    [SerializeField] private float xInput;
+
     public static GameManager instance;
 
     // Start is called before the first frame update
@@ -23,7 +27,6 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         
-        SetBall(BallColor.White,0);
         SetBall(BallColor.Red,1);
         SetBall(BallColor.Yellow,2);
         SetBall(BallColor.Green,3);
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        RotateBall();
     }
 
     private void SetBall(BallColor col, int i)
@@ -45,5 +48,11 @@ public class GameManager : MonoBehaviour
 
         Ball b = obj.GetComponent<Ball>();
         b.SetColorAndPoint(col);
+    }
+
+    private void RotateBall()
+    {
+        xInput = Input.GetAxis("Horizontal");
+        cueBall.transform.Rotate(new Vector3(0f,xInput,0f));
     }
 }
